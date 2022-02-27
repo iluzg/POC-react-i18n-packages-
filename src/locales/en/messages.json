@@ -1,0 +1,5 @@
+{
+  "Message Inbox": "Message Inbox",
+  "inbox.messagesCount": "{messagesCount, plural, =0 {There are no messages} one {There's # message in your inbox} other {There are # messages in your inbox}}",
+  "inbox.title": "See all <0>unread messages</0>or <1>mark them</1> as read."
+}
