@@ -1,8 +1,11 @@
 import { Plural, Trans } from "@lingui/macro";
+import { useLingui } from "@lingui/react";
 import React from "react";
 
 export default function Inbox() {
   const messages = [{}, {}];
+  const { i18n } = useLingui();
+
   const messagesCount = messages.length;
   const lastLogin = new Date();
   const markAsRead = () => {
@@ -11,6 +14,11 @@ export default function Inbox() {
 
   return (
     <div>
+      <div>
+        <button onClick={() => i18n.activate("en")}>Eg</button>
+        <button onClick={() => i18n.activate("cs")}>cs</button>
+      </div>
+
       <h1>
         <Trans>Message Inbox </Trans>
       </h1>
@@ -18,8 +26,8 @@ export default function Inbox() {
       <p>
         <Trans id="inbox.title">
           See all <a href="/unread">unread messages</a>
-          {" or "}
-          <a onClick={markAsRead}>mark them</a> as read.
+          <span> or </span>
+          123<a onClick={markAsRead}>mark them</a> as read.
         </Trans>
       </p>
 
@@ -33,7 +41,9 @@ export default function Inbox() {
         ></Plural>
       </p>
 
-      <footer>Last login on {lastLogin.toLocaleDateString()}.</footer>
+      <footer>
+        Last <Trans id={"entity.name"} /> on {i18n.date(lastLogin)} .
+      </footer>
     </div>
   );
 }

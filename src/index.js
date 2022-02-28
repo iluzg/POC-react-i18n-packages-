@@ -1,13 +1,15 @@
-import { i18n } from "@lingui/core";
+import { setupI18n } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
 import { cs, en } from "make-plural/plurals";
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import "./index.css";
-import { messages as csMessages } from "./locales/cs/messages";
-import { messages as enMessages } from "./locales/en/messages";
+import csMessages from "./locales/cs/messages.json";
+import enMessages from "./locales/en/messages.json";
 import reportWebVitals from "./reportWebVitals";
+
+export const i18n = setupI18n();
 
 i18n.load({
   en: enMessages,

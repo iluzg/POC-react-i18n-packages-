@@ -1,5 +1,7 @@
 {
-  "Message Inbox": "",
-  "inbox.messagesCount": "",
-  "inbox.title": ""
+  "Message Inbox": "xxx1 xxx2",
+  "app.entityName": "xxx1",
+  "entity.name": "xxx1",
+  "inbox.messagesCount": "{messagesCount, plural, =0 {xxx2} one {xxx2 #  xxxx3} other {xxx4 # xxx5}}",
+  "inbox.title": "xxx1 <0>xxx2</0>xxx3<1>xxx4</1> xxx5."
 }
