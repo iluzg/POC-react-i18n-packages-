@@ -1,32 +1,42 @@
-import { setupI18n } from "@lingui/core";
-import { I18nProvider } from "@lingui/react";
-import { cs, en } from "make-plural/plurals";
-import React from "react";
+import { i18n } from "@lingui/core";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import "./index.css";
-import csMessages from "./locales/cs/messages.json";
-import enMessages from "./locales/en/messages.json";
 import reportWebVitals from "./reportWebVitals";
 
-export const i18n = setupI18n();
+export async function loadMessages(locale) {
+  const { messages } = await import(`./locales/${locale}/messages`);
+  i18n.load(locale, messages);
+  i18n.activate(locale);
+}
 
-i18n.load({
-  en: enMessages,
-  cs: csMessages,
-});
-i18n.activate("cs");
+export function LocalizedApp() {
+  const [catalogs, setCatalogs] = useState({});
+  const [language, setLanguage] = useState("cs");
 
-i18n.loadLocaleData({
-  en: { plurals: en },
-  cs: { plurals: cs },
-});
+  useEffect(() => {
+    loadMessages(language);
+  }, []);
+
+  useEffect(() => {
+    loadMessages(language);
+  }, [language]);
+
+  async function handleLanguageChange(language) {
+    const newCatalog = await loadMessages(language);
+
+    const newCatalogs = { ...catalogs, [language]: newCatalog };
+
+    setCatalogs(newCatalogs);
+    setLanguage(language);
+  }
+  return { language, handleLanguageChange };
+}
 
 ReactDOM.render(
   <React.StrictMode>
-    <I18nProvider i18n={i18n}>
-      <App />
-    </I18nProvider>
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 );

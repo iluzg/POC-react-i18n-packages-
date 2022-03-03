@@ -1,0 +1,1 @@
+/*eslint-disable*/module.exports={messages:{"const":"cs const","entity.name":"entity.name","test":"id test in CS","{count, plural, =0 {There are no click} one {There's # of clicks} other {There are # clicks}}":[["count","plural",{0:"There are no click",one:["There's ","#"," of clicks"],other:["There are ","#"," clicks"]}]]}};

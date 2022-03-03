@@ -1,49 +1,45 @@
-import { Plural, Trans } from "@lingui/macro";
-import { useLingui } from "@lingui/react";
+import { defineMessage, Plural, t } from "@lingui/macro";
+import { Trans } from "@lingui/react";
 import React from "react";
 
-export default function Inbox() {
-  const messages = [{}, {}];
-  const { i18n } = useLingui();
+const someConst = defineMessage({ id: "const", message: "some const" });
 
-  const messagesCount = messages.length;
-  const lastLogin = new Date();
-  const markAsRead = () => {
-    alert("Marked as read.");
+export default function Inbox({ onLanguageChange, language }) {
+  const [count, setCount] = React.useState(0);
+  const handleChange = (e) => {
+    e.preventDefault();
+    onLanguageChange(e.target.value);
   };
-
   return (
     <div>
-      <div>
-        <button onClick={() => i18n.activate("en")}>Eg</button>
-        <button onClick={() => i18n.activate("cs")}>cs</button>
+      <button
+        onClick={() => {
+          setCount(count + 1);
+          alert(t({ id: someConst.id }));
+        }}
+      >
+        count
+      </button>
+      <div className="select">
+        <select onChange={handleChange} value={language}>
+          <option value="en">En</option>
+          <option value="cs">Cs</option>
+        </select>
       </div>
-
-      <h1>
-        <Trans>Message Inbox </Trans>
-      </h1>
-
-      <p>
-        <Trans id="inbox.title">
-          See all <a href="/unread">unread messages</a>
-          <span> or </span>
-          123<a onClick={markAsRead}>mark them</a> as read.
-        </Trans>
-      </p>
-
-      <p>
-        <Plural
-          id="inbox.messagesCount"
-          value={messagesCount}
-          _0="There are no messages"
-          one="There's # message in your inbox"
-          other="There are # messages in your inbox"
-        ></Plural>
-      </p>
-
-      <footer>
-        Last <Trans id={"entity.name"} /> on {i18n.date(lastLogin)} .
-      </footer>
+      <div>
+        <Trans id="test">Just and id</Trans>
+        <div>
+          <Trans id={someConst.id} />
+        </div>
+      </div>
+      <div></div>
+      num of clicks:{" "}
+      <Plural
+        value={count}
+        _0="There are no click"
+        one="There's # of click"
+        other="There are # clicks"
+      />
     </div>
   );
 }
